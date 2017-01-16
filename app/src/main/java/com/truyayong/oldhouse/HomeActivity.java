@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.truyayong.oldhouse.user.UserDetailActivity;
+import com.truyayong.oldhouse.user.UserLoginActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -57,7 +58,7 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Toast.makeText(HomeActivity.this, "head", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(HomeActivity.this, UserDetailActivity.class);
+                Intent intent = new Intent(HomeActivity.this, UserLoginActivity.class);
                 startActivity(intent);
             }
         });
