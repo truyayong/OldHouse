@@ -44,7 +44,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".user.UserLoginActivity"
-            android:label="@string/title_activity_user_login"></activity>
+            android:label="@string/title_activity_user_login" />
+        <activity android:name=".user.UserRegisterActivity"></activity>
     </application>
 
 </manifest>
