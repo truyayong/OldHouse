@@ -2,6 +2,7 @@ package com.truyayong.oldhouse;
 
 import android.app.Application;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.truyayong.oldhouse.utils.BmobUtil;
 
 /**
@@ -14,5 +15,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         BmobUtil.initBmob(this);
+        CrashReport.initCrashReport(getApplicationContext(), "de60f0e760", true);
     }
 }

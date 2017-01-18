@@ -3,6 +3,7 @@ package com.truyayong.oldhouse.user;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +31,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +40,11 @@ import java.util.List;
 import java.util.Set;
 
 import com.truyayong.oldhouse.R;
+import com.truyayong.oldhouse.data.User;
+
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.LogInListener;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -53,6 +61,7 @@ public class UserLoginActivity extends AppCompatActivity {
     // UI references.
     private AutoCompleteTextView actvPhoneView;
     private EditText mPasswordView;
+    private Button btnForgetPassword;
     private View mProgressView;
     private View mLoginFormView;
 
@@ -91,6 +100,14 @@ public class UserLoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        btnForgetPassword = (Button)findViewById(R.id.btn_forget_password);
+        btnForgetPassword.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 
     private void populateAutoComplete() {
@@ -231,6 +248,13 @@ public class UserLoginActivity extends AppCompatActivity {
 
             try {
                 // Simulate network access.
+                BmobUser.loginByAccount(mPhone, mPassword, new LogInListener<User>() {
+                    @Override
+                    public void done(User user, BmobException e) {
+                        Intent intent = new Intent(UserLoginActivity.this, UserDetailActivity.class);
+                        startActivity(intent);
+                    }
+                });
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;

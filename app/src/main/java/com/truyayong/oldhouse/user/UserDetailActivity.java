@@ -32,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import cn.bmob.v3.BmobBatch;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
@@ -76,6 +77,8 @@ public class UserDetailActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        User mUser = BmobUser.getCurrentUser(User.class);
+        Toast.makeText(this, mUser.getMobilePhoneNumber(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

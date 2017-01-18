@@ -16,10 +16,6 @@ public class User extends BmobUser {
      */
     Boolean gender;
     /**
-     * 用户密码
-     */
-    String userPassword;
-    /**
      * 用户签名
      */
     String userDescription;
@@ -54,14 +50,6 @@ public class User extends BmobUser {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
     }
 
     public Boolean getGender() {

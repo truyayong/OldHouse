@@ -39,7 +39,11 @@ dependencies {
     compile "info.android15.nucleus:nucleus:$nucleusVersion"
     compile "info.android15.nucleus:nucleus-support-v4:$nucleusVersion"
     compile "info.android15.nucleus:nucleus-support-v7:$nucleusVersion"
+    //Bmob做后台
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
+    //Bugly上报crash
+    compile 'com.tencent.bugly:crashreport:2.4.0'
+
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.alimuzaffar.lib:pinentryedittext:1.2'
 }
