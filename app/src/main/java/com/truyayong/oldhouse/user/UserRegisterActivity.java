@@ -167,7 +167,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(mPassword) && !UserUtil.isPasswordValid(mPassword)) {
+        if (TextUtils.isEmpty(mPassword) || !UserUtil.isPasswordValid(mPassword)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;

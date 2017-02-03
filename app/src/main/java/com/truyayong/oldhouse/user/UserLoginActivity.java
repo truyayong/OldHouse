@@ -62,6 +62,7 @@ public class UserLoginActivity extends AppCompatActivity {
     private AutoCompleteTextView actvPhoneView;
     private EditText mPasswordView;
     private Button btnForgetPassword;
+    private Button btnRegister;
     private View mProgressView;
     private View mLoginFormView;
 
@@ -105,7 +106,17 @@ public class UserLoginActivity extends AppCompatActivity {
         btnForgetPassword.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Intent intent = new Intent(UserLoginActivity.this, UserFogetPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnRegister = (Button)findViewById(R.id.phone_register_in_button);
+        btnRegister.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserLoginActivity.this, UserRegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -140,7 +151,7 @@ public class UserLoginActivity extends AppCompatActivity {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -236,6 +247,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
         private final String mPhone;
         private final String mPassword;
+        private boolean doBackgroundResult = false;
 
         UserLoginTask(String phone, String password) {
             mPhone = phone;
@@ -245,23 +257,23 @@ public class UserLoginActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                BmobUser.loginByAccount(mPhone, mPassword, new LogInListener<User>() {
-                    @Override
-                    public void done(User user, BmobException e) {
+            // Simulate network access.
+            BmobUser.loginByAccount(mPhone, mPassword, new LogInListener<User>() {
+                @Override
+                public void done(User user, BmobException e) {
+                    if (e == null) {
+                        doBackgroundResult = true;
                         Intent intent = new Intent(UserLoginActivity.this, UserDetailActivity.class);
                         startActivity(intent);
+                    } else {
+                        Toast.makeText(UserLoginActivity.this, getString(R.string.error_login), Toast.LENGTH_SHORT).show();
+                        doBackgroundResult = false;
                     }
-                });
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+                }
+            });
 
             // TODO: register the new account here.
-            return true;
+            return doBackgroundResult;
         }
 
         @Override
@@ -272,7 +284,7 @@ public class UserLoginActivity extends AppCompatActivity {
             if (success) {
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                //mPasswordView.setError(getString(R.string.error_login));
                 mPasswordView.requestFocus();
             }
         }
