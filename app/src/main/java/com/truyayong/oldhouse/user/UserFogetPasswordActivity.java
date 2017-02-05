@@ -10,9 +10,12 @@ import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
@@ -82,6 +85,8 @@ public class UserFogetPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_foget_password);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         // Set up the login form.
         actvPhoneView = (AutoCompleteTextView) findViewById(R.id.actv_user_forget_phone);
         populateAutoComplete();
@@ -285,11 +290,13 @@ public class UserFogetPasswordActivity extends AppCompatActivity {
                 @Override
                 public void done(BmobException e) {
                     if (e == null) {
+                        showProgress(false);
                         doBackgroudResult = true;
                         Intent intent = new Intent(UserFogetPasswordActivity.this, UserLoginActivity.class);
                         startActivity(intent);
                         Toast.makeText(UserFogetPasswordActivity.this, "重置成功", Toast.LENGTH_LONG).show();
                     } else {
+                        showProgress(false);
                         Toast.makeText(UserFogetPasswordActivity.this, getString(R.string.error_reset_password), Toast.LENGTH_LONG).show();
                         Log.e("UserFogetActivity", TAG + " exception " + e.toString());
                         doBackgroudResult = false;
@@ -304,7 +311,6 @@ public class UserFogetPasswordActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
 
             if (success) {
                 finish();
@@ -322,8 +328,26 @@ public class UserFogetPasswordActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        countDownTimer.cancel();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        if (mAuthTask != null) {
+            mAuthTask.onCancelled();
+        }
     }
 }

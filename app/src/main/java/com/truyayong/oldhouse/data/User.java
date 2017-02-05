@@ -26,7 +26,7 @@ public class User extends BmobUser {
     /**
      * 居住地
      */
-    String location;
+    String userLocation;
 
     public String getUserDescription() {
         return userDescription;
@@ -60,11 +60,11 @@ public class User extends BmobUser {
         this.gender = gender;
     }
 
-    public String getLocation() {
-        return location;
+    public String getUserLocation() {
+        return userLocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setUserLocation(String location) {
+        this.userLocation = location;
     }
 }

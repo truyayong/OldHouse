@@ -23,6 +23,8 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -70,6 +72,8 @@ public class UserLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         // Set up the login form.
         actvPhoneView = (AutoCompleteTextView) findViewById(R.id.actv_user_login_phone);
         populateAutoComplete();
@@ -262,10 +266,12 @@ public class UserLoginActivity extends AppCompatActivity {
                 @Override
                 public void done(User user, BmobException e) {
                     if (e == null) {
+                        showProgress(false);
                         doBackgroundResult = true;
                         Intent intent = new Intent(UserLoginActivity.this, UserDetailActivity.class);
                         startActivity(intent);
                     } else {
+                        showProgress(false);
                         Toast.makeText(UserLoginActivity.this, getString(R.string.error_login), Toast.LENGTH_SHORT).show();
                         doBackgroundResult = false;
                     }
@@ -279,7 +285,6 @@ public class UserLoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
 
             if (success) {
                 finish();
@@ -293,6 +298,27 @@ public class UserLoginActivity extends AppCompatActivity {
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mAuthTask != null) {
+            mAuthTask.onCancelled();
         }
     }
 }

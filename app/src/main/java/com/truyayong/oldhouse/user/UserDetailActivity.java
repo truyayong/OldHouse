@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.truyayong.oldhouse.R;
@@ -36,17 +37,29 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 import rx.Observable;
 
 public class UserDetailActivity extends AppCompatActivity {
 
+    private static final int SAVE_MENU_ITEM_ID = 1;
+
     private static final int CHOOSE_HEAD_LOCAL = 0;
     private static final int CHOOSE_HEAD_TAKE = 1;
     private static final int CROP_SMALL_HEAD = 2;
     private Uri tempUri = null;
     private CircleImageView civHeadUser;
+    private EditText etUserName;
+    private EditText etUserDescripe;
+    private EditText etUserLocation;
+
+    private String strUserName;
+    private String strUserDescripe;
+    private String strUserLocation;
+    private User mUser = BmobUser.getCurrentUser(User.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +72,7 @@ public class UserDetailActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("个人设置");
 
         final TextInputLayout tilUserName = (TextInputLayout)findViewById(R.id.til_user_name);
-        tilUserName.setHint("用户名");
+        //tilUserName.setHint("用户名");
         civHeadUser = (CircleImageView)findViewById(R.id.civ_head_user);
         View layoutHead = findViewById(R.id.ll_head_userdetail);
         layoutHead.setOnClickListener(new View.OnClickListener() {
@@ -77,13 +90,15 @@ public class UserDetailActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        User mUser = BmobUser.getCurrentUser(User.class);
-        Toast.makeText(this, mUser.getMobilePhoneNumber(), Toast.LENGTH_SHORT).show();
+
+        etUserName = (EditText)findViewById(R.id.et_user_name);
+        etUserDescripe = (EditText)findViewById(R.id.et_user_descripe);
+        etUserLocation = (EditText)findViewById(R.id.et_user_location);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem homeItem = menu.add(0, 1, 0, "首页");
+        MenuItem homeItem = menu.add(0, SAVE_MENU_ITEM_ID, 0, "首页");
         homeItem.setIcon(R.drawable.ic_done_white_24dp);
         homeItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
@@ -93,6 +108,28 @@ public class UserDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
+        }
+        if (item.getItemId() == SAVE_MENU_ITEM_ID) {
+            Toast.makeText(this, "click gou", Toast.LENGTH_SHORT).show();
+            strUserName = etUserName.getText().toString();
+            strUserDescripe = etUserDescripe.getText().toString();
+            strUserLocation = etUserLocation.getText().toString();
+            if (mUser != null) {
+                User newUser = new User();
+                newUser.setUserName(strUserName);
+                newUser.setUserDescription(strUserDescripe);
+                newUser.setUserLocation(strUserLocation);
+                newUser.update(mUser.getObjectId(), new UpdateListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        if (e == null) {
+                            Toast.makeText(UserDetailActivity.this, "update success", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(UserDetailActivity.this, "update fail", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
         }
         return super.onOptionsItemSelected(item);
     }

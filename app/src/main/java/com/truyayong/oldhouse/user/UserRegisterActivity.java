@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
@@ -78,6 +80,8 @@ public class UserRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         // Set up the login form.
         actvPhoneView = (AutoCompleteTextView) findViewById(R.id.actv_user_register_phone);
         populateAutoComplete();
@@ -134,6 +138,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         mRegisterFormView = findViewById(R.id.register_form);
         mProgressView = findViewById(R.id.register_progress);
     }
+
 
     private void populateAutoComplete() {
         SharedPreferences sp = getSharedPreferences("phone_history", MODE_PRIVATE);
@@ -256,6 +261,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         private final String mTaskPhone;
         private final String mTaskPassword;
         private final String mTaskVerifycode;
+        private boolean doBackgroundResult = false;
 
         UserRegisterTask(String phone, String password, String verifycode) {
             mTaskPhone = phone;
@@ -267,36 +273,36 @@ public class UserRegisterActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                User mUser = new User();
-                mUser.setMobilePhoneNumber(mTaskPhone);
-                mUser.setPassword(mTaskPassword);
-                mUser.signOrLogin(mTaskVerifycode, new SaveListener<User>() {
-                    @Override
-                    public void done(User user, BmobException e) {
+            User mUser = new User();
+            mUser.setMobilePhoneNumber(mTaskPhone);
+            mUser.setPassword(mTaskPassword);
+            mUser.signOrLogin(mTaskVerifycode, new SaveListener<User>() {
+                @Override
+                public void done(User user, BmobException e) {
+                    if (e == null) {
+                        showProgress(false);
+                        doBackgroundResult = true;
+                        Intent intent = new Intent(UserRegisterActivity.this, UserLoginActivity.class);
+                        startActivity(intent);
+                    } else {
+                        showProgress(false);
+                        doBackgroundResult = false;
+                        Toast.makeText(UserRegisterActivity.this, getString(R.string.error_login), Toast.LENGTH_SHORT).show();
                     }
-                });
-                // Simulate network access.
-                Thread.sleep(2000);
-                Intent intent = new Intent(UserRegisterActivity.this, UserLoginActivity.class);
-                startActivity(intent);
-            } catch (InterruptedException e) {
-                return false;
-            }
+                }
+            });
 
             // TODO: register the new account here.
-            return true;
+            return doBackgroundResult;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
 
             if (success) {
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
         }
@@ -309,8 +315,26 @@ public class UserRegisterActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        countDownTimer.cancel();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        if (mAuthTask != null) {
+            mAuthTask.onCancelled();
+        }
     }
 }
