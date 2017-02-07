@@ -48,10 +48,16 @@
         <activity
             android:name=".user.UserLoginActivity"
             android:label="@string/title_activity_user_login" />
-        <activity android:name=".user.UserRegisterActivity"
-            android:label="@string/login_activity_label_register_in"/>
-        <activity android:name=".user.UserFogetPasswordActivity"
-            android:label="@string/title_activity_user_forget_password"></activity>
+        <activity
+            android:name=".user.UserRegisterActivity"
+            android:label="@string/login_activity_label_register_in" />
+        <activity
+            android:name=".user.UserFogetPasswordActivity"
+            android:label="@string/title_activity_user_forget_password" />
+        <activity
+            android:name=".user.UserInfoActivity"
+            android:label="@string/title_activity_user_info"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -21,8 +21,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+import com.truyayong.oldhouse.HomeActivity;
 import com.truyayong.oldhouse.R;
 import com.truyayong.oldhouse.data.User;
 
@@ -55,10 +58,13 @@ public class UserDetailActivity extends AppCompatActivity {
     private EditText etUserName;
     private EditText etUserDescripe;
     private EditText etUserLocation;
+    private RadioGroup rgUserGender;
 
-    private String strUserName;
-    private String strUserDescripe;
-    private String strUserLocation;
+    private String strUserName = "";
+    private String strUserDescripe = "";
+    private String strUserLocation = "";
+    private Boolean bUserGender = false;
+    private String strUserHeadUrl = "";
     private User mUser = BmobUser.getCurrentUser(User.class);
 
     @Override
@@ -74,6 +80,7 @@ public class UserDetailActivity extends AppCompatActivity {
         final TextInputLayout tilUserName = (TextInputLayout)findViewById(R.id.til_user_name);
         //tilUserName.setHint("用户名");
         civHeadUser = (CircleImageView)findViewById(R.id.civ_head_user);
+        Picasso.with(getApplicationContext()).load(mUser.getUserHeadUrl()).into(civHeadUser);
         View layoutHead = findViewById(R.id.ll_head_userdetail);
         layoutHead.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +89,7 @@ public class UserDetailActivity extends AppCompatActivity {
                 showChooseHead();
             }
         });
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,8 +99,28 @@ public class UserDetailActivity extends AppCompatActivity {
         });
 
         etUserName = (EditText)findViewById(R.id.et_user_name);
+        etUserName.setText(mUser.getUserName());
         etUserDescripe = (EditText)findViewById(R.id.et_user_descripe);
+        etUserDescripe.setText(mUser.getUserDescription());
         etUserLocation = (EditText)findViewById(R.id.et_user_location);
+        etUserLocation.setText(mUser.getUserLocation());
+        rgUserGender = (RadioGroup)findViewById(R.id.rg_user_gender);
+        bUserGender = mUser.getGender();
+        if (bUserGender) {
+            rgUserGender.check(R.id.rb_user_male);
+        } else {
+            rgUserGender.check(R.id.rb_user_female);
+        }
+        rgUserGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rb_user_male) {
+                    bUserGender = true;
+                } else {
+                    bUserGender = false;
+                }
+            }
+        });
     }
 
     @Override
@@ -110,20 +137,31 @@ public class UserDetailActivity extends AppCompatActivity {
             finish();
         }
         if (item.getItemId() == SAVE_MENU_ITEM_ID) {
-            Toast.makeText(this, "click gou", Toast.LENGTH_SHORT).show();
             strUserName = etUserName.getText().toString();
             strUserDescripe = etUserDescripe.getText().toString();
             strUserLocation = etUserLocation.getText().toString();
             if (mUser != null) {
                 User newUser = new User();
-                newUser.setUserName(strUserName);
-                newUser.setUserDescription(strUserDescripe);
-                newUser.setUserLocation(strUserLocation);
+                if (!"".equals(strUserName.trim())) {
+                    newUser.setUserName(strUserName);
+                }
+                if (!"".equals(strUserDescripe.trim())) {
+                    newUser.setUserDescription(strUserDescripe);
+                }
+                if (!"".equals(strUserLocation.trim())) {
+                    newUser.setUserLocation(strUserLocation);
+                }
+                newUser.setGender(bUserGender);
+                if (!"".equals(strUserHeadUrl.trim())) {
+                    newUser.setUserHeadUrl(strUserHeadUrl);
+                }
                 newUser.update(mUser.getObjectId(), new UpdateListener() {
                     @Override
                     public void done(BmobException e) {
                         if (e == null) {
                             Toast.makeText(UserDetailActivity.this, "update success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(UserDetailActivity.this, HomeActivity.class);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(UserDetailActivity.this, "update fail", Toast.LENGTH_SHORT).show();
                         }
@@ -196,7 +234,6 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     private void setImageToView(Intent data) {
-        Log.e("UserDetail", Environment.getExternalStorageDirectory().toString());
         Bundle extras = data.getExtras();
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
@@ -217,6 +254,7 @@ public class UserDetailActivity extends AppCompatActivity {
                     public void done(BmobException e) {
                         if (e == null) {
                             String url = bmobFile.getFileUrl();
+                            strUserHeadUrl = bmobFile.getFileUrl();
                             Log.e("UserDetail", url);
                         }
                     }
@@ -226,7 +264,6 @@ public class UserDetailActivity extends AppCompatActivity {
             } catch (IOException e) {
                 Log.e("UserDetail", e.toString());
             }
-            Log.e("UserDetail", photo.toString());
             civHeadUser.setImageBitmap(photo);
         }
     }

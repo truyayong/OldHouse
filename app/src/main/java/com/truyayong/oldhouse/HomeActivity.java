@@ -15,18 +15,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+import com.truyayong.oldhouse.data.User;
 import com.truyayong.oldhouse.user.UserDetailActivity;
+import com.truyayong.oldhouse.user.UserInfoActivity;
 import com.truyayong.oldhouse.user.UserLoginActivity;
 import com.truyayong.oldhouse.user.UserRegisterActivity;
 
+import cn.bmob.v3.BmobUser;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private CircleImageView civHeadHome;
+    private TextView tvUserName;
+    private TextView tvUserDescripe;
+    private User mUser = BmobUser.getCurrentUser(User.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +63,23 @@ public class HomeActivity extends AppCompatActivity
 
         View layoutHeaderHome = navigationView.getHeaderView(0);
         civHeadHome = (CircleImageView)layoutHeaderHome.findViewById(R.id.civ_head_home);
+        tvUserName = (TextView)layoutHeaderHome.findViewById(R.id.tv_username_home);
+        tvUserDescripe = (TextView)layoutHeaderHome.findViewById(R.id.tv_userdescription_home);
+        if (mUser != null) {
+            Picasso.with(getApplicationContext()).load(mUser.getUserHeadUrl()).into(civHeadHome);
+            tvUserName.setText(mUser.getUserName());
+            tvUserDescripe.setText(mUser.getUserDescription());
+        }
         civHeadHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(HomeActivity.this, "head", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(HomeActivity.this, UserLoginActivity.class);
-                startActivity(intent);
+                if (mUser == null) {
+                    Intent intent = new Intent(HomeActivity.this, UserLoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(HomeActivity.this, UserInfoActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
