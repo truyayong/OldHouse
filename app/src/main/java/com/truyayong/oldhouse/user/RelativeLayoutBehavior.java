@@ -26,26 +26,17 @@ public class RelativeLayoutBehavior extends CoordinatorLayout.Behavior<RelativeL
 
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, RelativeLayout child, View dependency) {
-
-        float max = DensityUtil.dp2px(mContext, 100) + DensityUtil.getStatusBarHeight(mContext);
-
-        Message msg = Message.obtain();
-
-        Log.e("QIU", " first getY : " + dependency.getY());
-        if (dependency.getY() > 0) {
-            float scale = ((dependency.getY() - max) / (DensityUtil.dp2px(mContext, 180) - max));
-            Log.e("QIU", "scale: " + scale + " max : " + max + "getY : " + dependency.getY());
-            child.setAlpha(scale);
-//            msg.what = (int) (scale * 100f);
-//            if (UserInfoActivity.mHandler != null) {
-//                UserInfoActivity.mHandler.sendMessage(msg);
-//            }
-        }
-        return super.layoutDependsOn(parent, child, dependency);
+        return true;
     }
 
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, RelativeLayout child, View dependency) {
+
+        float max = DensityUtil.dp2px(mContext, 100) + DensityUtil.getStatusBarHeight(mContext);
+        if (dependency.getY() > 0) {
+            float scale = ((dependency.getY() - max) / (DensityUtil.dp2px(mContext, 180) - max));
+            child.setAlpha(scale);
+        }
         return super.onDependentViewChanged(parent, child, dependency);
     }
 }

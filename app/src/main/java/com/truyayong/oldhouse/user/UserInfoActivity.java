@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.truyayong.oldhouse.R;
 
@@ -16,6 +17,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
     public static Handler mHandler;
     private RelativeLayout rlHead;
+    private TextView tvToolUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,11 @@ public class UserInfoActivity extends AppCompatActivity {
         toolbar.setTitle("hello");
         setSupportActionBar(toolbar);
 
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        tvToolUserName = (TextView)findViewById(R.id.tv_tool_username);
+        tvToolUserName.setText("Qiuyay");
 
         rlHead = (RelativeLayout)findViewById(R.id.rl_head_userinfo);
         mHandler = new Handler() {
