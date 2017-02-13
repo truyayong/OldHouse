@@ -156,6 +156,10 @@
                     android:textSize="16sp"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
+        
+        <jp.wasabeef.richeditor.RichEditor
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></jp.wasabeef.richeditor.RichEditor>
 
     </LinearLayout>
 </ScrollView>
