@@ -17,6 +17,16 @@
             >
 
             <ImageButton
+                android:id="@+id/action_save"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:padding="8dp"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_description_black_36dp"
+                />
+
+            <ImageButton
                 android:id="@+id/action_undo"
                 android:layout_width="72dp"
                 android:layout_height="72dp"

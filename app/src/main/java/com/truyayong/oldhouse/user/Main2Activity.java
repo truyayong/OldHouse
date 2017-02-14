@@ -86,6 +86,7 @@ public class Main2Activity extends AppCompatActivity {
             "<li>gg</li>" +
             "</ul>\n";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +113,10 @@ public class Main2Activity extends AppCompatActivity {
 //            }
 //        });
 
-        RichText.from(list_test).clickable(true).urlClick(new OnUrlClickListener() {
+        Intent intent = getIntent();
+        String text = intent.getStringExtra("text");
+
+        RichText.from(text).clickable(true).urlClick(new OnUrlClickListener() {
             @Override
             public boolean urlClicked(String url) {
                 Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();

@@ -1,10 +1,13 @@
 package com.truyayong.oldhouse.user;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.truyayong.oldhouse.R;
 
@@ -14,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RichEditor mEditor;
     private TextView mPreview;
+    private ImageButton ibSave;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,17 @@ public class MainActivity extends AppCompatActivity {
         mEditor.setPlaceholder("Insert text here...");
 
         mPreview = (TextView) findViewById(R.id.preview);
+        ibSave = (ImageButton)findViewById(R.id.action_save);
+        ibSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = mEditor.getHtml();
+                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                intent.putExtra("text", text);
+                startActivity(intent);
+            }
+        });
         mEditor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
             @Override public void onTextChange(String text) {
                 mPreview.setText(text);
@@ -190,10 +205,8 @@ public class MainActivity extends AppCompatActivity {
             @Override public void onClick(View v) {
                 mEditor.insertImage("http://www.1honeywan.com/dachshund/image/7.21/7.21_3_thumb.JPG",
                         "dachshund");
-                for (int i = 0; i < 100; i++) {
-                    mEditor.insertImage("http://bmob-cdn-7969.b0.upaiyun.com/2017/02/05/b3be989e07f448c8be2af2baef8c7fa6.png",
+                mEditor.insertImage("http://bmob-cdn-7969.b0.upaiyun.com/2017/02/05/b3be989e07f448c8be2af2baef8c7fa6.png",
                             "xiong");
-                }
             }
         });
 
