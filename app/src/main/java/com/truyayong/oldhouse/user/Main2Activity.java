@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.truyayong.oldhouse.R;
+import com.truyayong.oldhouse.data.User;
 import com.zzhoujay.richtext.RichText;
 import com.zzhoujay.richtext.callback.OnUrlClickListener;
 
@@ -24,6 +25,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import cn.bmob.v3.BmobUser;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -114,9 +117,9 @@ public class Main2Activity extends AppCompatActivity {
 //        });
 
         Intent intent = getIntent();
-        String text = intent.getStringExtra("text");
+        String text = BmobUser.getCurrentUser(User.class).getTextUrl();
 
-        RichText.from(text).clickable(true).urlClick(new OnUrlClickListener() {
+        RichText.from(html).clickable(true).urlClick(new OnUrlClickListener() {
             @Override
             public boolean urlClicked(String url) {
                 Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
@@ -358,3 +361,4 @@ public class Main2Activity extends AppCompatActivity {
         return sb.toString();
     }
 }
+

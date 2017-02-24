@@ -120,4 +120,10 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="title_activity_add_article_title">AddArticleTitleActivity</string>
+    <string name="title_activity_show_article">ShowArticleActivity</string>
+    <string name="title_activity_test_scrolling">TestScrollingActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

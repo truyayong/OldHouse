@@ -28,6 +28,8 @@ public class User extends BmobUser {
      */
     String userLocation;
 
+    String textUrl;
+
     public String getUserDescription() {
         return userDescription;
     }
@@ -66,5 +68,13 @@ public class User extends BmobUser {
 
     public void setUserLocation(String location) {
         this.userLocation = location;
+    }
+
+    public String getTextUrl() {
+        return textUrl;
+    }
+
+    public void setTextUrl(String textUrl) {
+        this.textUrl = textUrl;
     }
 }
