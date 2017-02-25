@@ -5,6 +5,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".content.fragments.HomeFragment"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -102,16 +103,6 @@
                 android:gravity="center|bottom"
                 android:paddingTop="5dp" />
 
-            <RadioButton
-                android:id="@+id/explore_tab"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:button="@null"
-                android:drawableTop="@drawable/explore_sel"
-                android:gravity="center|bottom"
-                android:paddingTop="5dp" />
 
             <RadioButton
                 android:id="@+id/notify_tab"

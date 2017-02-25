@@ -58,20 +58,19 @@
             android:label="@string/title_activity_add_article_title"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".content.ShowArticleActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".content.TestScrollingActivity"
-            android:label="@string/title_activity_test_scrolling"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".content.IndexActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".content.ShowArticleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".content.TestScrollingActivity"
+            android:label="@string/title_activity_test_scrolling"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".content.IndexActivity">
         </activity>
     </application>
 

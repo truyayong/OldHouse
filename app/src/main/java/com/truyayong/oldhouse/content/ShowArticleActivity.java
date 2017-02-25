@@ -3,6 +3,7 @@ package com.truyayong.oldhouse.content;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,7 +26,7 @@ import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
-public class ShowArticleActivity extends AppCompatActivity {
+public class ShowArticleActivity extends FragmentActivity {
 
     private static final String[] testString1 = new String[]{
             "<h3>Test1</h3><img src=\"http://h.hiphotos.baidu.com/image/h%3D200/sign=e72c850a09f3d7ca13f63876c21fbe3c/a2cc7cd98d1001e9460fd63bbd0e7bec54e797d7.jpg\" />",
@@ -100,11 +101,11 @@ public class ShowArticleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_article);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("新文章");
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowTitleEnabled(true);
+//        getSupportActionBar().setTitle("新文章");
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);

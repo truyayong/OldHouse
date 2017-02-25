@@ -8,24 +8,98 @@
     tools:context="com.truyayong.oldhouse.content.ShowArticleActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:layout_scrollFlags="scroll|enterAlways|snap">
-        </android.support.v7.widget.Toolbar>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <ImageView
+                android:id="@+id/live"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/live_button" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_toLeftOf="@id/live"
+                android:background="@color/searchmenu">
+
+
+                <ImageView
+                    android:id="@+id/search"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_search" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/search"
+                    android:text="搜索话题、问题或人"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <!--<include layout="@layout/content_show_article" />-->
+    <include layout="@layout/content_show_article" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:layout_height="37dp"
+        android:layout_gravity="bottom">
+        <View
+            android:id="@+id/line_top"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            android:layout_alignParentTop="true"/>
+        <LinearLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_below="@id/line_top"
+            >
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:src="@drawable/edit_sel"
+                android:background="#f5f5f5"/>
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/favorite_sel"
+                android:background="#f5f5f5"/>
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/up_sel"
+                android:background="#f5f5f5"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

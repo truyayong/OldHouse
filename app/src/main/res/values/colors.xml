@@ -7,4 +7,6 @@
     <color name="searchmenu">#4BA1EE</color>
     <color name="white">#ffffff</color>
     <color name="menubackground">#FAFAFA</color>
+    <color name="black">#000000</color>
+    <color name="gray">#EDEFF2</color>
 </resources>
