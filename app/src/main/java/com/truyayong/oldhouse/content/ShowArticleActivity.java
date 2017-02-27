@@ -1,5 +1,6 @@
 package com.truyayong.oldhouse.content;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,13 @@ import java.util.List;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 public class ShowArticleActivity extends FragmentActivity {
+
+    private View headView;
+    private View tailView;
+
+    private ImageButton ibAddArticleItem;
+
+    private MyAdapter adapter;
 
     private static final String[] testString1 = new String[]{
             "<h3>Test1</h3><img src=\"http://h.hiphotos.baidu.com/image/h%3D200/sign=e72c850a09f3d7ca13f63876c21fbe3c/a2cc7cd98d1001e9460fd63bbd0e7bec54e797d7.jpg\" />",
@@ -76,7 +85,7 @@ public class ShowArticleActivity extends FragmentActivity {
 
 
     };
-    private static List<String> list = new LinkedList<>(Arrays.asList(testString1));
+    private static List<String> list = new LinkedList<>();
 
     private static final String test1 = "<p>试用员工提前三天，正式员工提前三十天以书面形式向所在部门离职申请，所有流程都是在NCOA上进行，首先是离职申请，通过之后是离职交接，NCOA离职交接流程如下：<br />" +
             "\r" +
@@ -101,11 +110,6 @@ public class ShowArticleActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_article);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowTitleEnabled(true);
-//        getSupportActionBar().setTitle("新文章");
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -113,26 +117,58 @@ public class ShowArticleActivity extends FragmentActivity {
         recyclerView.setItemAnimator(new FadeInUpAnimator());
         recyclerView.getItemAnimator().setAddDuration(500);
         recyclerView.getItemAnimator().setRemoveDuration(500);
-        final MyAdapter adapter = new MyAdapter();
+        adapter = new MyAdapter();
         adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 Log.e("gooll", "onItemClick");
                 Toast.makeText(ShowArticleActivity.this, "gooll : " + position, Toast.LENGTH_SHORT).show();
-                adapter.add(test1, position + 1);
+                adapter.add(test1);
             }
         });
         recyclerView.setAdapter(adapter);
+
+        headView = LayoutInflater.from(this).inflate(R.layout.show_article_headview, null);
+        tailView = LayoutInflater.from(this).inflate(R.layout.show_article_tailview, null);
+        //list.add(test);
+        ibAddArticleItem = (ImageButton) findViewById(R.id.ib_add_article_item);
+        ibAddArticleItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShowArticleActivity.this, AddArticleTitleActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            String text = data.getStringExtra("text");
+            if (adapter != null) {
+                adapter.add(text);
+            }
+        }
+    }
 
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.Holder> {
 
         private OnRecyclerViewItemClickListener listener = null;
 
+        private final int TYPE_HEAD = 0;
+        private final int TYPE_NORMAL = 1;
+        private final int TYPE_TAIL = 2;
+
         @Override
         public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+            if (headView != null && viewType == TYPE_HEAD) {
+                return new Holder(headView);
+            }
+
+            if (tailView != null && viewType == TYPE_TAIL) {
+                return new Holder(tailView);
+            }
             View view = LayoutInflater.from(ShowArticleActivity.this).inflate(R.layout.item_list, parent, false);
             Log.e("gooll", "onCreateViewHolder" + " listener : " + listener.toString() );
 //            view.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +184,18 @@ public class ShowArticleActivity extends FragmentActivity {
 
         @Override
         public void onBindViewHolder(Holder holder, final int position) {
+
+            if (getItemViewType(position) == TYPE_HEAD) {
+                return;
+            }
+
+            if(getItemViewType(position) == TYPE_TAIL) {
+                return;
+            }
+
+
+            int pos = getRealPosition(holder);
+            Log.e("ShowArticleActivity", " pos = " + pos);
             if (holder instanceof Holder) {
                 Holder h = (Holder) holder;
                 h.text.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +222,7 @@ public class ShowArticleActivity extends FragmentActivity {
                         return true;
                     }
                 });
-                RichText.from(list.get(position)).clickable(true).into(h.text);
+                RichText.from(list.get(pos)).clickable(true).into(h.text);
 //                if (position == 0) {
 //                    RichText.from(test1).clickable(true).into(h.text);
 //                } else {
@@ -185,7 +233,22 @@ public class ShowArticleActivity extends FragmentActivity {
 
         @Override
         public int getItemCount() {
-            return list.size();
+            int count = list.size();
+            if (headView != null) {
+                count++;
+            }
+            if (tailView != null) {
+                count++;
+            }
+            return count;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (headView == null) return TYPE_NORMAL;
+            if (position == 0) return TYPE_HEAD;
+            if (position == getItemCount() - 1) return TYPE_TAIL;
+            return TYPE_NORMAL;
         }
 
         class Holder extends RecyclerView.ViewHolder {
@@ -195,9 +258,16 @@ public class ShowArticleActivity extends FragmentActivity {
 
             public Holder(View itemView) {
                 super(itemView);
-                text = (TextView) itemView.findViewById(R.id.text_item);
+                if (itemView == headView) return;
+                if (itemView == tailView) return;
+                text = (TextView) itemView.findViewById(R.id.tv_feed_content);
 //                    id = (TextView) itemView.findViewById(R.id.text_id);
             }
+        }
+
+        private int getRealPosition(RecyclerView.ViewHolder holder) {
+            int pos = holder.getLayoutPosition();
+            return headView == null ? pos : pos - 1;
         }
 
         public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
@@ -209,9 +279,9 @@ public class ShowArticleActivity extends FragmentActivity {
             notifyItemRemoved(position);
         }
 
-        public void add(String text, int position) {
-            list.add(position, text);
-            notifyItemInserted(position);
+        public void add(String text) {
+            list.add(text);
+            notifyDataSetChanged();
         }
     }
 

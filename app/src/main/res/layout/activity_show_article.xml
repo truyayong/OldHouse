@@ -7,57 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context="com.truyayong.oldhouse.content.ShowArticleActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways">
-
-            <ImageView
-                android:id="@+id/live"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/live_button" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_toLeftOf="@id/live"
-                android:background="@color/searchmenu">
-
-
-                <ImageView
-                    android:id="@+id/search"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_search" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/search"
-                    android:text="搜索话题、问题或人"
-                    android:textSize="16sp" />
-
-            </RelativeLayout>
-
-
-        </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
-
     <include layout="@layout/content_show_article" />
 
     <RelativeLayout
@@ -80,6 +29,7 @@
             >
 
             <ImageButton
+                android:id="@+id/ib_add_article_item"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"

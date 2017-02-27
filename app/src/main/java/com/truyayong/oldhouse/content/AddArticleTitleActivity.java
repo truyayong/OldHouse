@@ -1,5 +1,6 @@
 package com.truyayong.oldhouse.content;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +23,8 @@ public class AddArticleTitleActivity extends AppCompatActivity {
 
     private static final int PUBLISH_MENU_ITEM_ID = 1;
 
+    private Intent intent;
+
     private RichEditor articleTitleRichText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class AddArticleTitleActivity extends AppCompatActivity {
         articleTitleRichText.setEditorHeight(200);
         articleTitleRichText.setPlaceholder("在这里开始你的故事...");
 
+        intent = getIntent();
     }
 
     @Override
@@ -52,7 +56,9 @@ public class AddArticleTitleActivity extends AppCompatActivity {
         }
 
         if (item.getItemId() == PUBLISH_MENU_ITEM_ID) {
-
+            intent.putExtra("text", articleTitleRichText.getHtml());
+            setResult(1, intent);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
