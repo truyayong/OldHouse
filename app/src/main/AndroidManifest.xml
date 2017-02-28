@@ -41,7 +41,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".user.UserLoginActivity"
-            android:label="@string/title_activity_user_login" />
+            android:label="@string/title_activity_user_login" >
+        </activity>
         <activity
             android:name=".user.UserRegisterActivity"
             android:label="@string/login_activity_label_register_in" />
@@ -58,12 +59,11 @@
             android:label="@string/title_activity_add_article_title"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
+            android:name=".content.AddArticleItemActivity"
+            android:label="@string/title_activity_add_article_title"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
             android:name=".content.ShowArticleActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".content.TestScrollingActivity"
@@ -71,6 +71,11 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".content.IndexActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

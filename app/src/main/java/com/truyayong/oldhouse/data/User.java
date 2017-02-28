@@ -1,6 +1,7 @@
 package com.truyayong.oldhouse.data;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * Created by alley_qiu on 2016/12/4.
@@ -28,7 +29,35 @@ public class User extends BmobUser {
      */
     String userLocation;
 
-    String textUrl;
+    /**
+     * 关注他的人
+     */
+    BmobRelation followedUser;
+
+    /**
+     * 关注他的人数
+     */
+    Integer followedUserCount;
+
+    /**
+     * 他关注的人
+     */
+    BmobRelation followUser;
+
+    /**
+     * 他关注的人数
+     */
+    Integer followUserCount;
+
+    /**
+     * 发布的文章
+     */
+    Article writeArticle;
+
+    /**
+     * 撰写的节点
+     */
+    Article writeArticleItem;
 
     public String getUserDescription() {
         return userDescription;
@@ -70,11 +99,51 @@ public class User extends BmobUser {
         this.userLocation = location;
     }
 
-    public String getTextUrl() {
-        return textUrl;
+    public BmobRelation getFollowUser() {
+        return followUser;
     }
 
-    public void setTextUrl(String textUrl) {
-        this.textUrl = textUrl;
+    public void setFollowUser(BmobRelation followUser) {
+        this.followUser = followUser;
+    }
+
+    public Integer getFollowUserCount() {
+        return followUserCount;
+    }
+
+    public void setFollowUserCount(Integer followUserCount) {
+        this.followUserCount = followUserCount;
+    }
+
+    public BmobRelation getFollowedUser() {
+        return followedUser;
+    }
+
+    public void setFollowedUser(BmobRelation followedUser) {
+        this.followedUser = followedUser;
+    }
+
+    public Integer getFollowedUserCount() {
+        return followedUserCount;
+    }
+
+    public void setFollowedUserCount(Integer followedUserCount) {
+        this.followedUserCount = followedUserCount;
+    }
+
+    public Article getWriteArticle() {
+        return writeArticle;
+    }
+
+    public void setWriteArticle(Article writeArticle) {
+        this.writeArticle = writeArticle;
+    }
+
+    public Article getWriteArticleItem() {
+        return writeArticleItem;
+    }
+
+    public void setWriteArticleItem(Article writeArticleItem) {
+        this.writeArticleItem = writeArticleItem;
     }
 }

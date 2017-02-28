@@ -117,7 +117,6 @@ public class Main2Activity extends AppCompatActivity {
 //        });
 
         Intent intent = getIntent();
-        String text = BmobUser.getCurrentUser(User.class).getTextUrl();
 
         RichText.from(html).clickable(true).urlClick(new OnUrlClickListener() {
             @Override

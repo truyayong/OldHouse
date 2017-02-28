@@ -2,6 +2,7 @@ package com.truyayong.oldhouse.content.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -15,7 +16,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.truyayong.oldhouse.R;
+import com.truyayong.oldhouse.content.ShowArticleActivity;
 import com.truyayong.oldhouse.content.widget.ListItemMenu;
+import com.truyayong.oldhouse.data.Article;
 import com.truyayong.oldhouse.utils.DensityUtil;
 
 import java.util.ArrayList;
@@ -39,19 +42,18 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             "http://img4.imgtn.bdimg.com/it/u=2897844664,899304846&fm=21&gp=0.jpg"};
 
     public static List<String> headPics = Arrays.asList(pics);
-    public static List<String> itemPics = Arrays.asList(pics2);
 
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_NORMAL = 1;
     private View headView;
 
-    private List<String> datas = new ArrayList<>();
+    private List<Article> datas = new ArrayList<>();
     private Context mContext;
 
     private int menuW, menuH;
 
-    public HomeRecyclerViewAdapter(Context mContext, List<String> datas) {
+    public HomeRecyclerViewAdapter(Context mContext, List<Article> datas) {
         this.datas = datas;
         this.mContext = mContext;
         DisplayMetrics display = new DisplayMetrics();
@@ -88,7 +90,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
         final int pos = getRealPosition(holder);
 
-        if (pos == 1) {
+        if (pos == -1) {
             holder.liveList.setVisibility(View.VISIBLE);
             holder.normalShell.setVisibility(View.GONE);
         } else {
@@ -96,12 +98,21 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             holder.normalShell.setVisibility(View.VISIBLE);
         }
 
-
-//        holder.text.setText(datas.get(pos));
-
-
-        Picasso.with(mContext).load(headPics.get(pos % 3)).placeholder(R.drawable.profile).into(holder.profile_pic);
-        Picasso.with(mContext).load(itemPics.get(pos % 3)).placeholder(R.drawable.cardpic).into(holder.pic);
+        final Article article = datas.get(pos);
+        holder.tvUserNameHome.setText(article.getAuthorName());
+        Picasso.with(mContext).load(article.getAuthorHeadUrl()).placeholder(R.drawable.profile).into(holder.civHeadUserHome);
+        holder.tvArticleTitleHome.setText(article.getTitle());
+        holder.tvArticleContenHome.setText(article.getContent());
+        holder.tvFavoriteHome.setText("" + article.getFavoriteCount() + " 赞");
+        holder.tvFollowHome.setText("" + article.getFollowUserCount() + " 关注");
+        holder.llArticleDetailHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ShowArticleActivity.class);
+                intent.putExtra("title", article.getTitle());
+                mContext.startActivity(intent);
+            }
+        });
         Log.e("HomeRecyclerViewAdapter", " onBindViewHolder");
 
         holder.menu.setOnClickListener(new View.OnClickListener() {
@@ -116,11 +127,11 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             }
         });
 
-        LinearLayoutManager manager = new LinearLayoutManager(mContext);
-        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        holder.liveList.setLayoutManager(manager);
-        HomeLiveListAdapter adapter = new HomeLiveListAdapter(datas);
-        holder.liveList.setAdapter(adapter);
+//        LinearLayoutManager manager = new LinearLayoutManager(mContext);
+//        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        holder.liveList.setLayoutManager(manager);
+//        HomeLiveListAdapter adapter = new HomeLiveListAdapter(datas);
+//        holder.liveList.setAdapter(adapter);
     }
 
     @Override
@@ -131,22 +142,31 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
     public class Holder extends RecyclerView.ViewHolder {
 
-        TextView text;
+
+        View llArticleDetailHome;
+        TextView tvUserNameHome;
         ImageView menu;
-        CircleImageView profile_pic;
-        ImageView pic;
+        CircleImageView civHeadUserHome;
         LinearLayout normalShell;
         RecyclerView liveList;
+        TextView tvArticleTitleHome;
+        TextView tvArticleContenHome;
+        TextView tvFavoriteHome;
+        TextView tvFollowHome;
 
         public Holder(View itemView) {
             super(itemView);
             if (itemView == headView) return;
-            text = (TextView) itemView.findViewById(R.id.text);
+            tvUserNameHome = (TextView) itemView.findViewById(R.id.tv_user_name_home);
             menu = (ImageView) itemView.findViewById(R.id.menu);
-            profile_pic = (CircleImageView) itemView.findViewById(R.id.profile_image);
-            pic = (ImageView) itemView.findViewById(R.id.pic);
+            civHeadUserHome = (CircleImageView) itemView.findViewById(R.id.civ_head_user_home);
+            tvArticleTitleHome = (TextView) itemView.findViewById(R.id.tv_article_title_home);
+            tvArticleContenHome = (TextView) itemView.findViewById(R.id.tv_article_content_home);
+            tvFavoriteHome = (TextView) itemView.findViewById(R.id.tv_favorite_home);
+            tvFollowHome = (TextView) itemView.findViewById(R.id.tv_follow_home);
             normalShell = (LinearLayout) itemView.findViewById(R.id.normalList);
             liveList = (RecyclerView) itemView.findViewById(R.id.liveList);
+            llArticleDetailHome = itemView.findViewById(R.id.ll_article_detail_home);
         }
     }
 

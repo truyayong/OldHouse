@@ -12,7 +12,6 @@
         android:id="@+id/card_option"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         card_view:cardElevation="1dp"
@@ -25,7 +24,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/iv_feed_author_icon"
+                android:id="@+id/iv_article_item_author_icon"
                 android:layout_alignParentTop="true"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -33,10 +32,10 @@
                 android:alpha="0.3"/>
 
             <TextView
-                android:id="@+id/tv_feed_author_name"
+                android:id="@+id/tv_article_item_author_name"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_toRightOf="@+id/iv_feed_author_icon"
+                android:layout_toRightOf="@+id/iv_article_item_author_icon"
                 android:paddingLeft="10dp"
                 android:singleLine="true"
                 android:textColor="@color/colorPrimary"
@@ -46,8 +45,8 @@
                 android:alpha="0.3"/>
 
             <TextView
-                android:layout_below="@id/tv_feed_author_name"
-                android:id="@+id/tv_feed_content"
+                android:layout_below="@id/tv_article_item_author_name"
+                android:id="@+id/tv_article_item_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"

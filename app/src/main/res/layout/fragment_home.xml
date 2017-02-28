@@ -31,8 +31,8 @@
         android:paddingRight="16dp"
         fab:menu_animationDelayPerItem="0"
         fab:menu_backgroundColor="#ccffffff"
-        fab:menu_colorNormal="#FFB805"
-        fab:menu_colorPressed="#F2AB00"
+        fab:menu_colorNormal="#33691e"
+        fab:menu_colorPressed="#558b2f"
         fab:menu_colorRipple="#D99200"
         fab:menu_fab_hide_animation="@anim/jump_to_down"
         fab:menu_fab_show_animation="@anim/jump_from_down"
@@ -40,25 +40,22 @@
         fab:menu_shadowColor="#444">
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_write_article"
             style="@style/MenuButtonsSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/write"
-            fab:fab_label="写文章" />
+            android:src="@drawable/ic_border_write_article_18dp"
+            fab:fab_label="写文章"
+            />
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_follow_article"
             style="@style/MenuButtonsSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/answer"
-            fab:fab_label="回答" />
+            android:src="@drawable/ic_subject_black_24dp"
+            fab:fab_label="接文章" />
 
-        <com.github.clans.fab.FloatingActionButton
-            style="@style/MenuButtonsSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/question"
-            fab:fab_label="提问" />
 
     </com.github.clans.fab.FloatingActionMenu>
 

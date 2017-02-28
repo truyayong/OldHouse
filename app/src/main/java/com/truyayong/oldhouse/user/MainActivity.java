@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
                 User mUser = BmobUser.getCurrentUser(User.class);
                 User user = new User();
-                user.setTextUrl(text);
                 //user.setUserName("qyy");
                 user.update(mUser.getObjectId(), new UpdateListener() {
                     @Override
