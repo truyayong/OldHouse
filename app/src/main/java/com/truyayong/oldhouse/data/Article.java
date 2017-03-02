@@ -30,6 +30,11 @@ public class Article extends BmobObject {
     String authorHeadUrl;
 
     /**
+     * 点赞用户
+     */
+    BmobRelation favoriteUser;
+
+    /**
      * 赞数
      */
     Integer favoriteCount;
@@ -112,5 +117,13 @@ public class Article extends BmobObject {
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
+    }
+
+    public BmobRelation getFavoriteUser() {
+        return favoriteUser;
+    }
+
+    public void setFavoriteUser(BmobRelation favoriteUser) {
+        this.favoriteUser = favoriteUser;
     }
 }

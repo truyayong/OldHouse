@@ -27,6 +27,16 @@ public class ArticleItem extends BmobObject {
      */
     User author;
 
+    /**
+     * 作者用户名
+     */
+    String authorName;
+
+    /**
+     * 作者头像
+     */
+    String authorHeadUrl;
+
 
     public User getAuthor() {
         return author;
@@ -58,5 +68,21 @@ public class ArticleItem extends BmobObject {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getAuthorHeadUrl() {
+        return authorHeadUrl;
+    }
+
+    public void setAuthorHeadUrl(String authorHeadUrl) {
+        this.authorHeadUrl = authorHeadUrl;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 }

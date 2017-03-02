@@ -36,12 +36,14 @@
                 android:src="@drawable/edit_sel"
                 android:background="#f5f5f5"/>
             <ImageButton
+                android:id="@+id/ib_article_follow"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:src="@drawable/favorite_sel"
                 android:background="#f5f5f5"/>
             <ImageButton
+                android:id="@+id/ib_article_favorite"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#fafafa"
+            android:layout_marginTop="16dp"
             />
     </LinearLayout>
 
@@ -58,7 +59,7 @@
             android:src="@drawable/ic_insert_link_black_24dp"/>
 
         <ImageButton
-            android:id="@+id/imb_photo_addarticle"
+            android:id="@+id/imb_photo_add_article_item"
             android:layout_width="48dp"
             android:layout_height="47dp"
             android:layout_centerVertical="true"

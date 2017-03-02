@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.truyayong.oldhouse.R;
+import com.truyayong.oldhouse.data.Article;
 import com.truyayong.oldhouse.data.ArticleItem;
+import com.truyayong.oldhouse.data.User;
 import com.truyayong.oldhouse.user.UserInfoActivity;
 import com.zzhoujay.richtext.RichText;
 
@@ -29,9 +31,13 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 public class ShowArticleActivity extends FragmentActivity {
@@ -40,6 +46,8 @@ public class ShowArticleActivity extends FragmentActivity {
     private View tailView;
 
     private ImageButton ibAddArticleItem;
+    private ImageButton ibArticleFollow;
+    private ImageButton ibArticleFavorite;
 
     private MyAdapter adapter;
     private TextView tvArticleTitle;
@@ -91,6 +99,62 @@ public class ShowArticleActivity extends FragmentActivity {
                 Intent intent = new Intent(ShowArticleActivity.this, AddArticleItemActivity.class);
                 intent.putExtra("title", title);
                 startActivityForResult(intent, 1);
+            }
+        });
+        ibArticleFollow = (ImageButton) findViewById(R.id.ib_article_follow);
+        ibArticleFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BmobQuery<Article> query = new BmobQuery<Article>();
+                query.addWhereEqualTo("title", title);
+                query.findObjects(new FindListener<Article>() {
+                    @Override
+                    public void done(List<Article> list, BmobException e) {
+                        Article article = list.get(0);
+                        article.increment("followUserCount");
+                        BmobRelation relation = new BmobRelation();
+                        relation.add(BmobUser.getCurrentUser(User.class));
+                        article.setFollowUser(relation);
+                        article.update(new UpdateListener() {
+                            @Override
+                            public void done(BmobException e) {
+                                if (e == null) {
+                                    Toast.makeText(ShowArticleActivity.this, "follow success", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(ShowArticleActivity.this, "follow fail", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        ibArticleFavorite = (ImageButton) findViewById(R.id.ib_article_favorite);
+        ibArticleFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BmobQuery<Article> query = new BmobQuery<Article>();
+                query.addWhereEqualTo("title", title);
+                query.findObjects(new FindListener<Article>() {
+                    @Override
+                    public void done(List<Article> list, BmobException e) {
+                        Article article = list.get(0);
+                        article.increment("favoriteCount");
+                        BmobRelation relation = new BmobRelation();
+                        relation.add(BmobUser.getCurrentUser(User.class));
+                        article.setFollowUser(relation);
+                        article.update(new UpdateListener() {
+                            @Override
+                            public void done(BmobException e) {
+                                if (e == null) {
+                                    Toast.makeText(ShowArticleActivity.this, "follow success", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(ShowArticleActivity.this, "follow fail", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                });
             }
         });
     }

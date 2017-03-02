@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.truyayong.oldhouse.R;
+import com.truyayong.oldhouse.content.IndexActivity;
 import com.truyayong.oldhouse.content.ShowArticleActivity;
 import com.truyayong.oldhouse.data.User;
 
@@ -269,7 +270,7 @@ public class UserLoginActivity extends AppCompatActivity {
                     if (e == null) {
                         showProgress(false);
                         doBackgroundResult = true;
-                        Intent intent = new Intent(UserLoginActivity.this, ShowArticleActivity.class);
+                        Intent intent = new Intent(UserLoginActivity.this, IndexActivity.class);
                         startActivity(intent);
                     } else {
                         showProgress(false);

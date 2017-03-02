@@ -68,9 +68,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:lines="1"
+                    android:ellipsize="end"
                     android:text="如何找到女朋友"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -83,7 +84,8 @@
                     android:ellipsize="end"
                     android:lines="3"
                     android:text="@string/large_text"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
             </LinearLayout>
 
 

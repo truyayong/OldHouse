@@ -20,6 +20,7 @@ import com.truyayong.oldhouse.content.ShowArticleActivity;
 import com.truyayong.oldhouse.content.widget.ListItemMenu;
 import com.truyayong.oldhouse.data.Article;
 import com.truyayong.oldhouse.utils.DensityUtil;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -102,7 +103,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         holder.tvUserNameHome.setText(article.getAuthorName());
         Picasso.with(mContext).load(article.getAuthorHeadUrl()).placeholder(R.drawable.profile).into(holder.civHeadUserHome);
         holder.tvArticleTitleHome.setText(article.getTitle());
-        holder.tvArticleContenHome.setText(article.getContent());
+        RichText.from(article.getContent()).into(holder.tvArticleContenHome);
         holder.tvFavoriteHome.setText("" + article.getFavoriteCount() + " 赞");
         holder.tvFollowHome.setText("" + article.getFollowUserCount() + " 关注");
         holder.llArticleDetailHome.setOnClickListener(new View.OnClickListener() {

@@ -50,14 +50,9 @@ public class User extends BmobUser {
     Integer followUserCount;
 
     /**
-     * 发布的文章
+     * 他关注的文章数
      */
-    Article writeArticle;
-
-    /**
-     * 撰写的节点
-     */
-    Article writeArticleItem;
+    Integer followArticleCount;
 
     public String getUserDescription() {
         return userDescription;
@@ -131,19 +126,11 @@ public class User extends BmobUser {
         this.followedUserCount = followedUserCount;
     }
 
-    public Article getWriteArticle() {
-        return writeArticle;
+    public Integer getFollowArticleCount() {
+        return followArticleCount;
     }
 
-    public void setWriteArticle(Article writeArticle) {
-        this.writeArticle = writeArticle;
-    }
-
-    public Article getWriteArticleItem() {
-        return writeArticleItem;
-    }
-
-    public void setWriteArticleItem(Article writeArticleItem) {
-        this.writeArticleItem = writeArticleItem;
+    public void setFollowArticleCount(Integer followArticleCount) {
+        this.followArticleCount = followArticleCount;
     }
 }

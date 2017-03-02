@@ -68,7 +68,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="12dp">
                 <LinearLayout
-                    android:id="@+id/ll_follow_artcile_usercenter"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -77,10 +76,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="我关注的文章"
+                        android:text="Ta关注的文章"
                         android:textColor="#bdbdbd"/>
                     <TextView
-                        android:id="@+id/tv_follow_article_count_usercenter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="7"
@@ -89,7 +87,6 @@
                         android:textColor="#424242"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/ll_follow_user_usercenter"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -98,10 +95,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="我关注的人"
+                        android:text="Ta关注的人"
                         android:textColor="#bdbdbd"/>
                     <TextView
-                        android:id="@+id/tv_follow_user_usercenter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="7"
@@ -110,7 +106,6 @@
                         android:textColor="#424242"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/ll_followed_user_usercenter"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -119,10 +114,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="关注我的人"
+                        android:text="关注Ta的人"
                         android:textColor="#bdbdbd"/>
                     <TextView
-                        android:id="@+id/tv_followed_user_usercenter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="7"
@@ -133,7 +127,6 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_user_description_usercenter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="我的签名最帅，没毛病"
@@ -156,13 +149,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我的住在"
+                    android:text="Ta住在"
                     android:textSize="12sp"
                     android:layout_gravity="center_vertical"
                     android:textColor="#9e9e9e"
                     android:layout_marginLeft="8dp"/>
                 <TextView
-                    android:id="@+id/tv_user_location_usercenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="深圳"
@@ -178,7 +170,6 @@
                     android:layout_gravity="center_vertical"
                     android:textColor="#9e9e9e" />
                 <TextView
-                    android:id="@+id/tv_user_gender_usercenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Boy"
@@ -201,7 +192,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <RelativeLayout
-                    android:id="@+id/rl_user_write_article_usercenter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -223,7 +213,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="我的文章"
+                            android:text="Ta的文章"
                             android:layout_marginBottom="16dp"
                             android:textColor="#9e9e9e"
                             android:textSize="18sp"/>
@@ -235,7 +225,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/rl_user_write_article_item_usercenter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -257,7 +246,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="我的节点"
+                            android:text="Ta的节点"
                             android:layout_marginBottom="16dp"
                             android:textColor="#9e9e9e"
                             android:textSize="18sp"/>
@@ -269,7 +258,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/rl_user_recent_read_usercenter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -303,7 +291,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/rl_user_about_truyayong_usercenter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -343,15 +330,6 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:src="@drawable/ic_edit"
-        app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|right|end"
-        app:elevation="0dp"/>
 
 </android.support.design.widget.CoordinatorLayout>
+
